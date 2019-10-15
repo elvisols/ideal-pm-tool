@@ -1,0 +1,55 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/pmtool-client/node_modules
+/pmtool-client/.pnp
+/pmtool-client.pnp.js
+
+# testing
+/pmtool-client/coverage
+
+# production
+/pmtool-client/build
+
+# misc
+/pmtool-client/.DS_Store
+/pmtool-client/.env.local
+/pmtool-client/.env.development.local
+/pmtool-client/.env.test.local
+/pmtool-client/.env.production.local
+
+/pmtool-client/npm-debug.log*
+/pmtool-client/yarn-debug.log*
+/pmtool-client/yarn-error.log*
+
+/pmtool/HELP.md
+/pmtool/target/
+!/pmtool/.mvn/wrapper/maven-wrapper.jar
+!/pmtool/**/src/main/**
+!/pmtool/**/src/test/**
+
+### STS ###
+/pmtool/.apt_generated
+/pmtool/.classpath
+/pmtool/.factorypath
+/pmtool/.project
+/pmtool/.settings
+/pmtool/.springBeans
+/pmtool/.sts4-cache
+
+### IntelliJ IDEA ###
+/pmtool/.idea
+/pmtool/*.iws
+/pmtool/*.iml
+/pmtool/*.ipr
+
+### NetBeans ###
+/pmtool/nbproject/private/
+/pmtool/nbbuild/
+/pmtool/dist/
+/pmtool/nbdist/
+/pmtool/.nb-gradle/
+/pmtool/build/
+
+### VS Code ###
+/pmtool/.vscode/
