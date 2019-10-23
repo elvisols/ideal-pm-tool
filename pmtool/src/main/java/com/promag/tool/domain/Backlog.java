@@ -1,9 +1,10 @@
 package com.promag.tool.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Backlog {
@@ -12,12 +13,20 @@ public class Backlog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer PTSequence = 0;
-    private String identifier;
+    private String projectIdentifier;
 
-    // OneToOne with project
-    // OneToMany tasks
+    //OneToOne with project
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="id",nullable = false)
+    @JsonIgnore
+    private Project project;
 
-    public Backlog(){}
+
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "backlog", orphanRemoval = true)
+    private List<Task> projectTasks = new ArrayList<>();
+
+    public Backlog() {
+    }
 
     public Long getId() {
         return id;
@@ -35,11 +44,27 @@ public class Backlog {
         this.PTSequence = PTSequence;
     }
 
-    public String getIdentifier() {
-        return identifier;
+    public String getProjectIdentifier() {
+        return projectIdentifier;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+    public void setProjectIdentifier(String projectIdentifier) {
+        this.projectIdentifier = projectIdentifier;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public List<Task> getProjectTasks() {
+        return projectTasks;
+    }
+
+    public void setProjectTasks(List<Task> projectTasks) {
+        this.projectTasks = projectTasks;
     }
 }

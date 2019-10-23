@@ -10,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Iterator;
 
 @CrossOrigin
 @RestController
@@ -24,14 +23,14 @@ public class ProjectController {
     MapValidationErrorService mapValidationErrorService;
 
     @GetMapping
-    public Iterator<Project> getProjects() {
+    public Iterable<Project> getProjects() {
 
-        return projectService.getProjects();
+        return projectService.findAllProjects(null);
     }
 
     @GetMapping("/{id}")
     public Project getProject(@PathVariable String id) {
-        return projectService.getProject(id);
+        return projectService.findProjectByIdentifier(id, "");
     }
 
     @PostMapping
@@ -40,7 +39,7 @@ public class ProjectController {
 
         if(errorMap != null) return errorMap;
 
-        project = projectService.saveProject(project);
+        project = projectService.saveOrUpdateProject(project, null);
         return new ResponseEntity<>(project, HttpStatus.CREATED);
     }
 
@@ -50,13 +49,13 @@ public class ProjectController {
 
         if(errorMap != null) return errorMap;
 
-        project = projectService.saveProject(project);
+        project = projectService.saveOrUpdateProject(project, null);;
         return new ResponseEntity<>(project, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProject(@PathVariable String id) {
-        projectService.deleteProject(id);
+        projectService.deleteProjectByIdentifier(id, null);
 
         return new ResponseEntity<String>("Project '"+id+"' deleted", HttpStatus.OK);
     }
