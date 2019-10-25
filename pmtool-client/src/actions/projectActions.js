@@ -4,6 +4,7 @@ import { GET_ERRORS, GET_PROJECTS, GET_PROJECT, DELETE_PROJECT } from "./types";
 export const createProject = (project, history) => async dispatch => {
   try {
     const res = await axios.post("/api/projects", project);
+    console.log("create project response: " + res);
     history.push("/dashboard");
     // solution, to clear error state
     dispatch({
@@ -22,6 +23,7 @@ export const createProject = (project, history) => async dispatch => {
 export const editProject = (project, history) => async dispatch => {
   try {
     const res = await axios.put("/api/projects", project);
+    console.log("edit project response: " + res);
     history.push("/dashboard");
   } catch (err) {
     dispatch({
@@ -34,6 +36,7 @@ export const editProject = (project, history) => async dispatch => {
 
 export const getProjects = () => async dispatch => {
   const res = await axios.get("/api/projects");
+  console.log("get project response: " + res);
   dispatch({
     type: GET_PROJECTS,
     payload: res.data
@@ -61,7 +64,8 @@ export const deleteProject = (identifier, history) => async dispatch => {
     )
   ) {
     try {
-      const res = await axios.delete(`/api/projects/${identifier}`); // backtex
+      const res = await axios.delete(`/api/projects/${identifier}`);
+      console.log("delete project response: " + res); // ` => backtex
       dispatch({
         type: DELETE_PROJECT,
         payload: identifier
