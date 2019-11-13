@@ -33,8 +33,7 @@ public class BacklogController {
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
         if (errorMap != null) return errorMap;
 
-//        Task projectTask1 = taskService.addTask(backlog_id, projectTask, principal.getName());
-        Task projectTask1 = taskService.addTask(backlog_id, projectTask, null);
+        Task projectTask1 = taskService.addTask(backlog_id, projectTask, principal.getName());
 
         return new ResponseEntity<Task>(projectTask1, HttpStatus.CREATED);
 
@@ -43,15 +42,13 @@ public class BacklogController {
     @GetMapping("/{backlog_id}")
     public Iterable<Task> getProjectBacklog(@PathVariable String backlog_id, Principal principal){
 
-        return taskService.findBacklogById(backlog_id, null);
-//        return taskService.findBacklogById(backlog_id, principal.getName());
+        return taskService.findBacklogById(backlog_id, principal.getName());
 
     }
 
     @GetMapping("/{backlog_id}/{pt_id}")
     public ResponseEntity<?> getTask(@PathVariable String backlog_id, @PathVariable String pt_id, Principal principal){
-//        Task projectTask = taskService.findPTByProjectSequence(backlog_id, pt_id, principal.getName());
-        Task projectTask = taskService.findPTByProjectSequence(backlog_id, pt_id, null);
+        Task projectTask = taskService.findPTByProjectSequence(backlog_id, pt_id, principal.getName());
         return new ResponseEntity<Task>( projectTask, HttpStatus.OK);
     }
 
@@ -63,8 +60,7 @@ public class BacklogController {
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
         if (errorMap != null) return errorMap;
 
-//        Task updatedTask = taskService.updateByProjectSequence(projectTask,backlog_id,pt_id, principal.getName());
-        Task updatedTask = taskService.updateByProjectSequence(projectTask,backlog_id,pt_id, null);
+        Task updatedTask = taskService.updateByProjectSequence(projectTask,backlog_id,pt_id, principal.getName());
 
         return new ResponseEntity<Task>(updatedTask,HttpStatus.OK);
 
@@ -73,8 +69,7 @@ public class BacklogController {
 
     @DeleteMapping("/{backlog_id}/{pt_id}")
     public ResponseEntity<?> deleteTask(@PathVariable String backlog_id, @PathVariable String pt_id, Principal principal){
-//        taskService.deletePTByProjectSequence(backlog_id, pt_id, principal.getName());
-        taskService.deletePTByProjectSequence(backlog_id, pt_id, null);
+        taskService.deletePTByProjectSequence(backlog_id, pt_id, principal.getName());
 
         return new ResponseEntity<String>("Project Task "+pt_id+" was deleted successfully", HttpStatus.OK);
     }

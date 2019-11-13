@@ -22,16 +22,16 @@ public class ProjectService {
     @Autowired
     private BacklogRepository backlogRepository;
 
-//    @Autowired
+    @Autowired
     private UserRepository userRepository;
 
     public Project saveOrUpdateProject(Project project, String username){
 
         if(project.getId() != null){
             Project existingProject = projectRepository.findByIdentifier(project.getIdentifier());
-//            if(existingProject !=null &&(!existingProject.getLeader().equals(username))){
-//                throw new ProjectNotFoundException("Project not found in your account");
-//            }else
+            if(existingProject !=null &&(!existingProject.getLeader().equals(username))){
+                throw new ProjectNotFoundException("Project not found in your account");
+            }else
                 if(existingProject == null){
                 throw new ProjectNotFoundException("Project with ID: '"+project.getIdentifier()+"' cannot be updated because it doesn't exist");
             }
@@ -39,9 +39,9 @@ public class ProjectService {
 
         try{
 
-//            User user = userRepository.findByUsername(username);
-//            project.setUser(user);
-//            project.setLeader(user.getUsername());
+            User user = userRepository.findByUsername(username);
+            project.setUser(user);
+            project.setLeader(user.getUsername());
             project.setIdentifier(project.getIdentifier().toUpperCase());
 
             if(project.getId()==null){
@@ -75,16 +75,16 @@ public class ProjectService {
 
         }
 
-//        if(!project.getLeader().equals(username)){
-//            throw new ProjectNotFoundException("Project not found in your account");
-//        }
+        if(!project.getLeader().equals(username)){
+            throw new ProjectNotFoundException("Project not found in your account");
+        }
 
         return project;
     }
 
     public Iterable<Project> findAllProjects(String username){
-//        return projectRepository.findAllByLeader(username);
-        return projectRepository.findAll();
+        return projectRepository.findAllByLeader(username);
+//        return projectRep ository.findAll();
     }
 
 
