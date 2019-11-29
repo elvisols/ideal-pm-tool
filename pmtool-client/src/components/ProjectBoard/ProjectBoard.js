@@ -34,7 +34,13 @@ class ProjectBoard extends Component {
     const boardAlgorithm = (errors, tasks) => {
       if (tasks.length < 1) {
         // if empty
-        if (errors.projectIdentifier) {
+        if (errors.projectNotFound) {
+          return (
+            <div className="alert alert-danger text-center" role="alert">
+              {errors.projectNotFound}
+            </div>
+          );
+        } else if (errors.projectIdentifier) {
           return (
             <div className="alert alert-danger text-center" role="alert">
               {errors.projectIdentifier}
@@ -86,7 +92,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
-  mapStateToProps,
-  { getBacklog }
-)(ProjectBoard);
+export default connect(mapStateToProps, { getBacklog })(ProjectBoard);
